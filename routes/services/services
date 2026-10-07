@@ -1,0 +1,100 @@
+import Disney from "../models/Disney.js";
+
+const disney = [
+    new Disney(
+        1,
+        "Frozen",
+        "Filme sobre as irmãs Elsa e Anna",
+        "Filme",
+        2013
+    ),
+
+    new Disney(
+        2,
+        "Cinderela",
+        "Filme sobre uma jovem que vive com a madrasta e tem sua vida transformada ao conhecer o príncipe",
+        "Filme",
+        1950
+    )
+];
+
+class DisneyService {
+
+    criar(nome, descricao, categoria, ano) {
+
+        if (!nome || !descricao || !categoria || !ano) {
+            throw new Error("Preencha todos os campos");
+        }
+
+        const novoDisney = new Disney(
+            disney.length + 1,
+            nome,
+            descricao,
+            categoria,
+            ano
+        );
+
+        disney.push(novoDisney);
+
+        return novoDisney;
+    }
+
+
+    listar() {
+
+        return disney;
+    }
+
+
+    buscarPorId(id) {
+
+        const item = disney.find(
+            disney => disney.id === id
+        );
+
+        if (!item) {
+            throw new Error("Conteúdo não encontrado");
+        }
+
+        return item;
+    }
+
+
+    atualizar(id, nome, descricao, categoria, ano) {
+
+        const item = disney.find(
+            disney => disney.id === id
+        );
+
+        if (!item) {
+            throw new Error("Conteúdo não encontrado");
+        }
+
+        item.nome = nome;
+        item.descricao = descricao;
+        item.categoria = categoria;
+        item.ano = ano;
+
+        return item;
+    }
+
+
+    deletar(id) {
+
+        const index = disney.findIndex(
+            disney => disney.id === id
+        );
+
+        if (index === -1) {
+            throw new Error("Conteúdo não encontrado");
+        }
+
+        disney.splice(index, 1);
+
+        return {
+            mensagem: "Conteúdo excluído com sucesso"
+        };
+    }
+}
+
+export default DisneyService;
