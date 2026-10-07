@@ -35,7 +35,56 @@ class disneyService {
 
 Listar() {
 
+return disney;
+    }
 
+
+    buscarPorId(id) {
+
+        const item = disney.find(
+            disney => disney.id === id
+        );
+
+        return item;
+    }
+
+
+    atualizar(id, nome, descricao, categoria) {
+
+        const item = disney.find(
+            disney => disney.id === id
+        );
+
+        if (!item) {
+            return null;
+        }
+
+        item.nome = nome;
+        item.descricao = descricao;
+        item.categoria = categoria;
+
+        return item;
+    }
+
+
+    deletar(id) {
+
+        const index = disney.findIndex(
+            disney => disney.id === id
+        );
+
+        if (index === -1) {
+            return false;
+        }
+
+        disney.splice(index, 1);
+
+        return true;
+    }
+}
+
+
+export default DisneyServic
     
 }
 
